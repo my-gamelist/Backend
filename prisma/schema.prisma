@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ExcludedApps {
+  appId Int @id @map("app_id")
+  @@map("excluded_apps")
+}
+
+model Game {
+  appId       Int       @id @map("app_id")
+  gameName    String @map("game_name")
+  releaseDate DateTime? @db.Date @map("release_date")
+  rating       Float?    @db.Real
+  numReviews  Int? @map("num_reviews")
+  description  String?
+  developers   String?
+  publishers   String?
+
+  @@map("game")
+}
+
