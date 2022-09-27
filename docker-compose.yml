@@ -6,7 +6,7 @@ services:
       context: ./
       target: production-build
       dockerfile: Dockerfile
-    container_name: server
+    container_name: mygamelist-backend
     ports:
       - '3000:3000'
     volumes:
