@@ -11,7 +11,7 @@ class gameDetailController{
             const gameID = req.params.gameID;
             // logger.info(gameID);
 
-            const gameData = await this.gameService.getGameDetail(gameID as unknown as number);
+            const gameData = await this.gameService.getGameDetail(gameID);
             
             logger.info(gameData);
 

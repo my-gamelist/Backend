@@ -1,5 +1,5 @@
 # Common build stage
-FROM node:14.14.0-alpine3.12 as common-build-stage
+FROM node:16-alpine3.16 as build
 
 COPY . ./app
 
@@ -7,18 +7,20 @@ WORKDIR /app
 
 RUN npm install
 
+RUN npm run build
+
 EXPOSE 3000
 
-# Development build stage
-FROM common-build-stage as development-build-stage
+FROM node:16-alpine3.16
 
-ENV NODE_ENV development
+COPY package.json ./
 
-CMD ["npm", "run", "dev"]
+RUN npm install --only=production
 
-# Production build stage
-FROM common-build-stage as production-build-stage
+COPY --from=build /app/node_modules/.prisma/client /node_modules/.prisma/client
 
-ENV NODE_ENV production
+COPY --from=build /app/dist ./dist
 
-CMD ["npm", "run", "start"]
+COPY --from=build /app/swagger.yaml ./dist/swagger.yaml
+
+CMD ["node", "dist/server.js"]
