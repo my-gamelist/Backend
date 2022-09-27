@@ -11,7 +11,7 @@ RUN npm run build
 
 EXPOSE 3000
 
-FROM node:16-alpine3.16
+FROM node:16-alpine3.16 as production-build
 
 COPY package.json ./
 
