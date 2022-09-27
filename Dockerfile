@@ -13,7 +13,7 @@ EXPOSE 3000
 
 FROM node:16-alpine3.16 as production-build
 
-COPY package.json ./
+COPY package*.json ./
 
 RUN npm install --only=production
 
