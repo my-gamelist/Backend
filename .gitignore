@@ -129,6 +129,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+.DS_Store
 __pycache__
 env
 failed_games.txt
