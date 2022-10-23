@@ -1,5 +1,5 @@
-import AccountService from "@/services/account.service";
-import { NextFunction, Request, Response } from "express";
+import AccountService from '@/services/account.service';
+import { NextFunction, Request, Response } from 'express';
 
 export default class AccountController {
   public accountService = new AccountService();
