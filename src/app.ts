@@ -1,4 +1,4 @@
-import '@/index'
+import '@/index';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors, { CorsOptions } from 'cors';
