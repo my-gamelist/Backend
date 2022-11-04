@@ -37,10 +37,7 @@ export default class AuthService {
       // if user is found, check password
       if (user) {
         const hashPassword = crypto.pbkdf2Sync(password, user.salt, 310000, 32, 'sha256');
-
-        logger.info(user.hashPassword);
-        logger.info(hashPassword.toString('hex'));
-
+        
         // if calculated hash does not match the stored hash, return false
         if (user.hashPassword !== hashPassword.toString('hex')) {
           return cb(null, false);

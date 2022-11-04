@@ -8,11 +8,8 @@ class GameController {
   public getGameDetail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const gameID = req.params.gameID;
-      // logger.info(gameID);
 
       const gameData = await this.gameService.getGameDetail(gameID);
-
-      logger.info(gameData);
 
       res.status(200).json(gameData);
     } catch (error) {
