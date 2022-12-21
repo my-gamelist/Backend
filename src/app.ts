@@ -12,7 +12,12 @@ import swaggerUi from 'swagger-ui-express';
 // import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
+import authMiddleware from './middlewares/auth.middleware';
 import { logger, stream } from '@utils/logger';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
+import session from 'express-session';
+import path from 'path';
 
 class App {
   public app: express.Application;
@@ -53,6 +58,21 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
+    this.app.use(express.static(path.join(__dirname, 'public')));
+    this.app.use(
+      session({
+        secret: 'secret',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+        },
+      }),
+    );
+
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
+    authMiddleware(passport, LocalStrategy.Strategy);
   }
 
   private initializeRoutes(routes: Routes[]) {

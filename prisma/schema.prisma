@@ -14,15 +14,19 @@ model ExcludedApps {
 }
 
 model Game {
-  appId       Int       @id @map("app_id")
-  gameName    String    @map("game_name")
-  releaseDate DateTime? @map("release_date") @db.Date
-  rating      Float?    @db.Real
-  numReviews  Int?      @map("num_reviews")
-  description String?
-  developers  String?
-  publishers  String?
-  review      Review[]  @relation("gameToreview")
+  appId            Int       @id @map("app_id")
+  gameName         String    @map("game_name")
+  releaseDate      DateTime? @map("release_date") @db.Date
+  rating           Float?    @db.Real
+  numReviews       Int?      @map("num_reviews")
+  description      String?
+  developers       String?
+  publishers       String?
+  steamRating      Int?      @map("steam_rating")
+  metacriticScore  Int?      @map("metacritic_score")
+  steamReviews     Int?      @map("steam_reviews")
+  imageUrl         String?   @map("image_url")
+  review           Review[]  @relation("gameToreview")
 
   @@map("game")
 }
@@ -31,26 +35,26 @@ model Account {
   accountId    Int       @id @default(autoincrement()) @map("account_id")
   firstName    String?   @map("first_name")
   lastName     String?   @map("last_name")
-  dateOfBirth  DateTime? @db.Date  @map("date_of_birth")
-  username      String    @unique
-  salt          String    @unique
-  hashPassword String    @unique   @map("hash_password")
-  email         String    @unique
-  review        Review[]
+  dateOfBirth  DateTime? @map("date_of_birth") @db.Date
+  username     String    @unique
+  salt         String    @unique
+  hashPassword String    @unique @map("hash_password")
+  email        String    @unique
+  review       Review[]
 
   @@map("account")
 }
 
 model Review {
-  reviewId    Int      @id @default(autoincrement())   @map("review_id")
-  appId       Int?   @map("app_id")
-  accountId   Int      @default(autoincrement())   @map("account_id")
+  reviewId    Int      @id @default(autoincrement()) @map("review_id")
+  appId       Int?     @map("app_id")
+  accountId   Int      @default(autoincrement()) @map("account_id")
   reviewTitle String   @map("review_title")
-  reviewBody  String?    @map("review_body")
-  reviewScore Int    @map("review_score")
-  publishDate DateTime @db.Date    @map("publish_date")
-  account      Account  @relation(fields: [accountId], references: [accountId], onDelete: NoAction, onUpdate: NoAction)
-  game         Game?    @relation("gameToreview", fields: [appId], references: [appId], onDelete: NoAction, onUpdate: NoAction)
+  reviewBody  String?  @map("review_body")
+  reviewScore Int      @map("review_score")
+  publishDate DateTime @map("publish_date") @db.Date
+  account     Account  @relation(fields: [accountId], references: [accountId], onDelete: NoAction, onUpdate: NoAction)
+  game        Game?    @relation("gameToreview", fields: [appId], references: [appId], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("review")
 }

@@ -16,6 +16,7 @@ export default class GameRoute implements Routes {
   }
 
   private initializeRoute() {
+    this.router.get(`${this.path}/top`, this.gameController.getGamesBySteamRating);
     this.router.get(`${this.path}/:gameID`, this.gameController.getGameDetail);
   }
 }

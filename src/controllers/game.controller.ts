@@ -8,17 +8,24 @@ class GameController {
   public getGameDetail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const gameID = req.params.gameID;
-      // logger.info(gameID);
 
       const gameData = await this.gameService.getGameDetail(gameID);
-
-      logger.info(gameData);
 
       res.status(200).json(gameData);
     } catch (error) {
       next(error);
     }
   };
+
+  public getGamesBySteamRating = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const games = await this.gameService.getGamesBySteamRating();
+
+      res.status(200).json(games);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default GameController;
