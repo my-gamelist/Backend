@@ -7,7 +7,7 @@ export default class AccountRoute {
   public accountController: AccountController;
 
   constructor() {
-    this.path = '/account';
+    this.path = '/api/account';
     this.router = Router();
     this.accountController = new AccountController();
 

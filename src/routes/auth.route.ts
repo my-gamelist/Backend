@@ -4,7 +4,7 @@ import { Router } from 'express';
 import AuthController from '@/controllers/auth.controller';
 
 export default class AuthRoute implements Routes {
-  public path = '/auth';
+  public path = '/api/auth';
   public router = Router();
   public authController = new AuthController();
 

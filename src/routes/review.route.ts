@@ -8,7 +8,7 @@ export default class ReviewRoute implements Routes {
   public reviewController: ReviewController;
 
   constructor() {
-    this.path = '/review';
+    this.path = '/api/review';
     this.router = Router();
     this.reviewController = new ReviewController();
 

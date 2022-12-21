@@ -8,7 +8,7 @@ export default class GameRoute implements Routes {
   public gameController: GameController;
 
   constructor() {
-    this.path = '/game';
+    this.path = '/api/game';
     this.router = Router();
     this.gameController = new GameController();
 
