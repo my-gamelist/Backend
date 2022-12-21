@@ -10,4 +10,21 @@ export default class GameService {
 
     return game;
   }
+
+  public async getGamesBySteamRating() {
+    const games = await prisma.game.findMany({
+      orderBy: {
+        steamRating: 'desc',
+      },
+      where: {
+        steamReviews: {
+          gt: 1000,
+        },
+      },
+      take: 20,
+    });
+
+    return games;
+  }
 }
+

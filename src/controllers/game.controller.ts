@@ -16,6 +16,16 @@ class GameController {
       next(error);
     }
   };
+
+  public getGamesBySteamRating = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const games = await this.gameService.getGamesBySteamRating();
+
+      res.status(200).json(games);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default GameController;
