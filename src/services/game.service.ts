@@ -1,6 +1,20 @@
 import prisma from '@/databases/postgreClient';
 
 export default class GameService {
+  public async getTotalGames() {
+    const totalGames = await prisma.game.count(
+      {
+        where: {
+          steamReviews: {
+            gt: 1000,
+          },
+        },
+      },
+    );
+
+    return totalGames;
+  }
+
   public async getGameDetail(gameID) {
     const game = await prisma.game.findUnique({
       where: {
@@ -11,7 +25,7 @@ export default class GameService {
     return game;
   }
 
-  public async getGamesBySteamRating() {
+  public async getGamesBySteamRating(page: any) {
     const games = await prisma.game.findMany({
       orderBy: {
         steamRating: 'desc',
@@ -22,6 +36,7 @@ export default class GameService {
         },
       },
       take: 20,
+      skip: 20 * (page - 1),
     });
 
     return games;
