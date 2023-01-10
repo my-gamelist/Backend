@@ -10,6 +10,13 @@ import AuthRoute from '@/routes/auth.route';
 
 validateEnv();
 
+declare module 'express-session' {
+    interface SessionData {
+        username: string;
+        session: string
+    }
+}
+
 const app = new App([new IndexRoute(), new GameRoute(), new AccountRoute(), new ReviewRoute(), new ReviewRoute(), new AuthRoute()]);
 
 app.listen();

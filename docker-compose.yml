@@ -15,6 +15,23 @@ services:
     environment:
       NODE_ENV: development
       PORT: 3000
+    networks:
+      - backend
+    depends_on:
+      - redis
+    
+  redis:
+    image: redislabs/redisearch
+    container_name: redis
+    ports:
+      - '6379:6379'
+    restart: 'unless-stopped'    
+    networks:
+      - backend  
+
+networks:
+  backend:
+    driver: bridge
 
 volumes:
   data:

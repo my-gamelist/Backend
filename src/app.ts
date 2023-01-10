@@ -16,7 +16,9 @@ import authMiddleware from './middlewares/auth.middleware';
 import { logger, stream } from '@utils/logger';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import session from 'express-session';
+import session, { MemoryStore } from 'express-session';
+import redisClient from './databases/redisClient';
+import RedisStore from 'connect-redis';
 import path from 'path';
 
 class App {
@@ -26,7 +28,7 @@ class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
-    this.env = 'development';
+    this.env = process.env.ENV || 'development';
     this.port = process.env.PORT || 3000;
 
     this.initializeMiddlewares();
@@ -69,6 +71,17 @@ class App {
         },
       }),
     );
+    // this.app.use(
+    //   session({
+    //     store: new (RedisStore(session))({ client: redisClient }),
+    //     secret: 'secret',
+    //     resave: false,
+    //     saveUninitialized: false,
+    //     cookie: {
+    //       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    //     },
+    //   }),
+    // );
 
     this.app.use(passport.initialize());
     this.app.use(passport.session());

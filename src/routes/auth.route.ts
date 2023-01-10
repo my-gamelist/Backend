@@ -13,6 +13,7 @@ export default class AuthRoute implements Routes {
   }
 
   private initializeRoutes() {
+    this.router.get(`${this.path}/check`, this.authController.check);
     this.router.post(`${this.path}/register`, this.authController.register);
     this.router.post(`${this.path}/login`, passport.authenticate('local'), this.authController.login);
     this.router.post(`${this.path}/logout`, this.authController.logout);
